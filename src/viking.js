@@ -4,55 +4,52 @@ class Soldier {
         this.health = health,
         this.strength = strength
     }
-    attack(){
-        return this.strength;
-    }
-
-    receiveDamage(damage){        
-        this.health = this.health - damage
-   }
-}
-
-// Viking
-class Viking extends Soldier {
-    constructor (name, health, strength) {
-        super(health, strength)
-        this.name = name
-    }
 
     attack(){
-        return this.strength;
+        return this.strength
     }
 
     receiveDamage(damage){
         this.health = this.health - damage
+    }
+}
 
-        if (this.health > 0) {
+// Viking
+class Viking extends Soldier {
+        constructor (name, health, strength) {
+            super(health, strength)
+            this.name = name
+        }
+
+    attack(){
+        return this.strength
+    }
+
+    receiveDamage(damage){
+        this.health = this.health - damage;
+
+        if(this.health > 0){
             return `${this.name} has received ${damage} points of damage`
-        } else if (this.health <= 0) {
+        }
+
+        if(this.health <= 0) {
             return `${this.name} has died in act of combat`
         }
     }
 
-    battleCry() {
-       return "Odin Owns You All!" 
+    battleCry(){
+        return "Odin Owns You All!"
     }
-
 }
 
 // Saxon
 class Saxon extends Soldier{
-    attack() {
-        return this.strength
-    }
-
-    receiveDamage(damage) {
+    receiveDamage(damage){
         this.health = this.health - damage;
 
         if (this.health > 0) {
             return `A Saxon has received ${damage} points of damage`
-        } 
-
+        }
         if (this.health <= 0) {
             return `A Saxon has died in combat`
         }
@@ -60,27 +57,29 @@ class Saxon extends Soldier{
 }
 
 // War
-
 class War {
-    constructor () {
+    constructor(){
         this.vikingArmy = [],
         this.saxonArmy = []
     }
-
-    addViking(viking) {
-        this.vikingArmy.push(viking)
+    addViking(viking){
+        this.vikingArmay.push(viking)
     }
 
-    addSaxon(saxon) {
+    addSaxon(saxon){
         this.saxonArmy.push(saxon)
     }
 
-    vikingAttack() {
-        let randomSaxon = this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)] 
-        let randomViking = this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length )]
-        let result = randomSaxon.receiveDamage(randomViking.strength)
-       //I don't know how to continue from here
+    vikingAttack(){
+        let randomViking = this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)]
+        let randomSaxon = this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)]
+
+        let result = randomSaxon.receiveDamage(randomViking.attack())
+
+        if(randomSaxon.health <= 0){this.saxonArmy.splice(randomSaxon, 1)}
+
+        return result
     }
-    saxonAttack() {}
-    showStatus() {}
+    saxonAttack(){}
+    showStatus(){}
 }
